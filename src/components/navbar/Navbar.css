@@ -20,8 +20,8 @@
     outline: none;
     font-size: 17px;
     height: 25px;
-    width:150px;
-    margin-right: 5px;
+    width:max(2vw,150px);
+    margin-right: 8px;
     color:rgb(220, 36, 67);
     background-color: rgb(249, 239, 226);
 
@@ -157,7 +157,21 @@
     .navbar-menu{
        display: none;
     }
+}
 
+@media (max-width:450px)
+{
+    .navbar-menu{
+       display: none;
+    }
+
+    .navbar-search{
+        width: 120px;
+    }
+
+    .navbar-search input{
+        width: 50px;
+    }
 
 }
 
