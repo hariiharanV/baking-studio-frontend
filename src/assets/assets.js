@@ -65,6 +65,7 @@ import instagram from './instagram.png'
 import facebook from './facebook.png'
 import whatsapp from './whatsapp.png'
 import donut from './donuts.png'
+import footer from './footer.jpg'
 
 export const assets = {
     logo,
@@ -89,7 +90,8 @@ export const assets = {
     facebook,
     instagram,
     whatsapp,  
-    donut
+    donut, 
+    footer
 }
 
 export const menu_list = [
