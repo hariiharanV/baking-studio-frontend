@@ -6,7 +6,7 @@ import {BrowserRouter} from 'react-router-dom'
 import StoreContextProvider from './context/StoreContext.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter basename="/baking-studio">
+  <BrowserRouter>
     <StoreContextProvider>
        <App />
       </StoreContextProvider>
