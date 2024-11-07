@@ -9,6 +9,8 @@ const PlaceOrder = () => {
 
     const {getTotalCartAmount,token,food_list,cartItems,url,rupees} = useContext(StoreContext);
 
+    const [paymentMethod,setPaymentMethod] = useState('');
+
     const [data,setData] = useState({
         firstName:"",
         lastName:"",
@@ -35,32 +37,66 @@ const PlaceOrder = () => {
 
         event.preventDefault();
 
-        let orderItems = [];
-
-        food_list.map((item)=>{
-            if(cartItems[item._id]>0)
-            {
-                let itemInfo = item;
-                itemInfo["quantity"] = cartItems[item._id];
-                orderItems.push(itemInfo);
-            }
-        })
-       
-        let orderData = {
-            address:data,
-            items:orderItems,
-            amount : getTotalCartAmount()+2
-        }
-
-        let response = await axios.post(url+"/api/order/place",orderData,{headers:{token}});
-
-        if(response.data.success)
+        if(paymentMethod==="online")
         {
-            const {session_url} = response.data;
-            window.location.replace(session_url);
-        }
-        else{
-            alert("Error");
+
+            let orderItems = [];
+
+            food_list.map((item)=>{
+                if(cartItems[item._id]>0)
+                {
+                    let itemInfo = item;
+                    itemInfo["quantity"] = cartItems[item._id];
+                    orderItems.push(itemInfo);
+                }
+            })
+        
+            let orderData = {
+                address:data,
+                items:orderItems,
+                amount : getTotalCartAmount()+2
+            }
+
+            let response = await axios.post(url+"/api/order/place",orderData,{headers:{token}});
+
+            if(response.data.success)
+            {
+                const {session_url} = response.data;
+                window.location.replace(session_url);
+            }
+            else{
+                alert("Error");
+            }
+        }else{
+            console.log('COD');
+
+            let orderItems = [];
+
+            food_list.map((item)=>{
+                if(cartItems[item._id]>0)
+                {
+                    let itemInfo = item;
+                    itemInfo["quantity"] = cartItems[item._id];
+                    orderItems.push(itemInfo);
+                }
+            })
+        
+            let orderData = {
+                address:data,
+                items:orderItems,
+                amount : getTotalCartAmount()+2
+            }
+
+            let response = await axios.post(url+"/api/order/placeCOD",orderData,{headers:{token}});
+
+            if(response.data.success)
+            {
+                const {session_url} = response.data;
+                window.location.replace(session_url);
+            }
+            else{
+                alert("Error");
+            }
         }
     }
 
@@ -118,8 +154,11 @@ const PlaceOrder = () => {
                             <b>{rupees}{getTotalCartAmount()? getTotalCartAmount() + 30:0}</b>
                         </div>
                     </div>
-                    <button type="submit">Proceed to Payment</button>
-                </div>
+                    <div className="submit-buttons">
+                        <button type="submit" onClick={() => setPaymentMethod("online")}>Proceed to Payment</button>
+                        <button className="delivery-button" onClick={() => setPaymentMethod("cod")} >Cash On Delivery (COD)</button>
+                    </div>
+                </div>     
         </div>
     </form>
   )

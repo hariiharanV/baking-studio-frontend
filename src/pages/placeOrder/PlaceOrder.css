@@ -26,6 +26,12 @@
     outline-color: tomato;
 }
 
+.submit-buttons{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
 .place-order-left .multi-fields{
     display: flex;
     gap:10px;
@@ -40,6 +46,7 @@
 .place-order .cart-total button{
     margin-top: 30px;
 }
+
 
 @media (max-width:500px)
 {
